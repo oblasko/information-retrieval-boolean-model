@@ -37,7 +37,7 @@ class InvertedIndex:
 
             stemmed_vocab = set(stemmed_vocab_list)
             self.collection.append((c, stemmed_vocab))
-            self.collection_ids[c] = fileid
+            self.collection_ids[str(c)] = fileid
             c += 1
     
     def print_colection_stats(self):
@@ -79,7 +79,7 @@ def test_inverted_index():
     for term, ids in In.index.items():
         print("term: {}, list: {}".format(term, ids.print()))
 
-test_inverted_index()
+#test_inverted_index()
 
 #l = LinkedList()
 #l.append(0)
@@ -89,4 +89,4 @@ test_inverted_index()
 #l.append(8)
 #l.append(9)
 #l.append(10)
-#l.print()
+#print(l.to_set())

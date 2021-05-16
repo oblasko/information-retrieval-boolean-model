@@ -17,6 +17,14 @@ class LinkedList:
             traverse = traverse.next_val
         traverse.next_val = new_node
 
+    def to_set(self):
+        node_list = []
+        traverse = self.head
+        while traverse is not None:
+            node_list.append(str(traverse.doc_id))
+            traverse = traverse.next_val
+        return set(node_list)
+
     def print(self):
         print_str = ""
         traverse = self.head
