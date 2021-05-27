@@ -27,7 +27,7 @@ class DocumentTable extends React.Component {
                             <tr key={item.id}>
                                 <td>{item.id}</td>
                                 <td>{item.doc}</td>
-                                <td>{item.link}</td>
+                                <td><a href={item.link}>raw_link</a></td>
                             </tr>
                         ))
                     }
