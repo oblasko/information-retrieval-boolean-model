@@ -38,6 +38,7 @@ Pre klient časť sme sa rozhodli použit javascriptový framework [ReactJs](htt
 - [NLTK](https://www.nltk.org/)
   - `nltk.corpus` pre vytvorenie korpusu, odstránenie stopwords
   - `nltk.stem` pre stematizáciu
+- [PyEda](https://pypi.org/project/pyeda/) - validácia dotazu
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/) - API
 
 #### Front-end
@@ -45,10 +46,28 @@ Pre klient časť sme sa rozhodli použit javascriptový framework [ReactJs](htt
 - [create-react-app](https://github.com/facebook/create-react-app) - konfigurácia 
 - [react-bootstrap]([react-bootstrap](https://react-bootstrap.github.io/)) - štylizácia
 
+## Inštalačná príručka
+### Základné požiadavky
+- Python 3
+- [nodeJS](https://nodejs.org/en/)
+
+### Inštalácia
+
 ## Output example
 
-## Experimentation
+## Experimenty
+Pre otestovanie a porovnanie rýhlosti indexu sme sa rozhodli porovnať čas odozvy indexu voči trivialnému sekvenčnému prechodu pre zadaný dotaz. 
 
+| Dotaz      | Index | Sekvenčný prechod     |
+| :---        |    :----:   |          ---: |
+| horse     | 0.27 ms     | 8.25 ms   |
+| NOT horse   | 0.35 ms       | 7.89 ms      |
+| death and love  | 0.39 ms       | 8.25 ms      |
+| murder OR god OR shakespear   | 0.49 ms       | 67.93 ms      |
+| (Goddard AND god) OR NOT Exeunt  | 0.51 ms       | 83.99 ms      |
+| (Goddard AND god) AND NOT Exeunt AND (death AND love)   | 0.68 ms       | 95.94 ms      |
+
+Ako môžme vidieť v tabuľke vyššie invertovaný index je viacnásobne rychlejší ako triviálny prechod. Zaujimavé taktiež je to, že pri rastúcej náročnosti dotazu oba spôsoby prehladávania rastú, ale pri indexe nárast času odozvy nie je až taký výrazný ako pri triviálnom prechode.
 ## Discussion
 
 ## Conclusion

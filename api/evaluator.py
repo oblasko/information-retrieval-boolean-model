@@ -2,6 +2,7 @@ from nltk.stem import *
 from information_retrieval import InvertedIndex
 import re
 import pyeda.boolalg.expr
+import time
 
 op_precedence = {
     "NOT": 3,
@@ -224,4 +225,16 @@ def test_evaluator():
     except TypeError as e:
         print(e)
 
-#test_evaluator()
+def compare():
+    e1 = Evaluator(COLLECTION_SIZE)
+    start_time = time.time()
+
+    print(e1.evaluate("(Goddard AND god) AND NOT Exeunt AND (death AND love)", "sequential"))
+    print("Sequential: --- %s mili seconds ---" % ((time.time() - start_time)*1000))
+
+
+    start_time = time.time()
+    print(e1.evaluate("(Goddard AND god) AND NOT Exeunt AND (death AND love)"))
+    print("Index: --- %s mili seconds ---" % ((time.time() - start_time)*1000))
+
+#compare()
