@@ -1,17 +1,24 @@
 import React from "react"
+import { withStyles } from '@material-ui/core/styles';
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Table } from "react-bootstrap"
 
-class Table extends React.Component {
+const useStyles = theme => ({
+    table: {
+    
+    },
+});
+
+class DocumentTable extends React.Component {
     render () {
        const data = this.props.tableData.data
        return (
-        <div className="my-table">
-            <h1>Result</h1>
-            <table>
+            <Table striped bordered hover style={{marginLeft: "20%", marginTop: "100px", width:"60%"}} >
                 <thead>
                 <tr>
-                    <th>Number</th>
+                    <th>#</th>
                     <th>Document name</th>
-                    <th>Raw text</th>
+                    <th>Link to raw text</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,15 +28,14 @@ class Table extends React.Component {
                                 <td>{item.id}</td>
                                 <td>{item.doc}</td>
                                 <td>{item.link}</td>
-                                <td/>
                             </tr>
                         ))
                     }
                 </tbody>
-            </table>
-        </div>
+            </Table>
+            
        )
     }
 }
 
-export default Table
+export default withStyles(useStyles)(DocumentTable)

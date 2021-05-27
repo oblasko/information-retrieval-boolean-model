@@ -1,21 +1,27 @@
 import React from "react"
-import Table from "./Table"
+import DocumentTable from "./Table"
+import { Button, Form, Navbar, Alert } from "react-bootstrap"
+import "./App.css";
 
-class Form extends React.Component {
+class MyForm extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             querry: "",
             documents: [],
             ids: [],
-            links: []
+            links: [],
+            time: 0.0,
+            querryVisible: false,
+            recordVisible: false
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
+        this.setState({documents: [], ids: [], links: [], querryVisible:false, recordVisible:false})
         const documents = this.state
-
+        console.log(documents)
         const options = {
             method: 'POST',
             mode: 'cors',
@@ -36,9 +42,14 @@ class Form extends React.Component {
         .then(data => { const documents = data.table;
                         const ids = data.ids;
                         const links = data.links
-
+                        console.log(data.table)
+                        if ( documents.length === 0 ){
+                            this.setState({recordVisible: true})
+                        }
                         this.setState({documents: documents, ids: ids, links: links})})
-        .catch(error => { error.text().then( errMessage => { console.log(errMessage) }) })
+        .catch(error => { error.text().then( errMessage => { 
+                          this.setState({querryVisible: true})  
+                          console.log(errMessage) }) })
     }
             
     
@@ -68,19 +79,27 @@ class Form extends React.Component {
         }
 
         jsonData.data = data;
-
+        
         return (
         <div>
-        <h1>Boolean model</h1>
-        <form onSubmit={this.handleSubmit}>
-            <p><input type='text' placeholder='your boolean querry' value={querry} name='querry' onChange={this.handleInputChagne}></input></p>
-            <p><button>Evaluate querry</button></p>
-        </form>
-
-        <Table tableData={jsonData}></Table>
+        <Navbar bg="light" style={{marginLeft: "20px"}}>
+         <Navbar.Brand>Boolean model</Navbar.Brand>
+        </Navbar>
+        <Form onSubmit={this.handleSubmit} style={{width:"60%", marginLeft:"20%", marginTop:"10%"}}>
+            <Form.Group controlId="formBasicEmail">
+            <Form.Control size="lg" type="text" placeholder="Enter boolean querry"
+                          value={querry} name='querry' margin="normal" onChange={this.handleInputChagne} />  
+            </Form.Group>
+            <br/>
+            <p><Button style={{width:"20%"}}variant="primary" type="submit">Evaluate</Button></p>
+        </Form>
+        <p></p>
+        <Alert className={this.state.querryVisible?'fadeIn':'fadeOut'} variant="danger">Not a valid boolean querry!</Alert>
+        <Alert className={this.state.recordVisible?'fadeIn':'fadeOut'} variant="primary">No documments found</Alert>
+        <DocumentTable tableData={jsonData}></DocumentTable>
         </div>
     )
     }
 }
 
-export default Form
+export default MyForm
