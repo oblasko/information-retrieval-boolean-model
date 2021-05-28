@@ -18,7 +18,7 @@ class Evaluator:
     def __init__(self, num_of_docs):
         self.all_docs = [str(i) for i in list(range(num_of_docs))]
         self.in_index = InvertedIndex()
-    
+
     def AND(self, left, right):
         """returning document ids that contains both left and right terms"""
         if (left and right):
@@ -58,8 +58,13 @@ class Evaluator:
         parsed_q = []
         operators = []
 
-        querry = user_query.replace("(", "( ").replace(")", " )").split(" ")
+        #squash whitespaces
+        querry = " ".join(user_query.split())
+        querry = querry.replace("(", "( ").replace(")", " )")
+        
+        querry = querry.split()
 
+        print(querry)
         for i in range(len(querry)):
             if querry[i].upper() in op_precedence:
                 querry[i] = querry[i].upper()

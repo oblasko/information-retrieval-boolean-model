@@ -56,4 +56,5 @@ def get_query_from_react():
     except TypeError as e:
         return "Not a valid boolean expression", 400
 
+    
     return jsonify({'table': res, 'ids': ids, "links": raw_links}), 200

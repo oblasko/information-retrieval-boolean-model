@@ -43,7 +43,6 @@ class InvertedIndex:
             self.collection_ids[str(c)] = fileid
             self.raw_words.append(raw_text)
             c += 1
-        print(self.collection_ids)
     
     def print_colection_stats(self):
         print("Number of documents: {}".format(len(self.collection)))
